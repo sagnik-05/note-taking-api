@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Note-Taking API Tester</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
+        .section { margin-bottom: 20px; border: 1px solid #ccc; padding: 10px; }
+        button { margin-top: 10px; }
+        #output { white-space: pre-wrap; background-color: #f0f0f0; padding: 10px; }
+    </style>
+</head>
+<body>
+    <h1>Note-Taking API Tester</h1>
+
+    <div class="section">
+        <h2>Create Note (POST /notes)</h2>
+        <input id="createTitle" placeholder="Title" required>
+        <input id="createContent" placeholder="Content" required>
+        <input id="createTags" placeholder="Tags (comma-separated)">
+        <button onclick="createNote()">Create Note</button>
+    </div>
+
+    <div class="section">
+        <h2>Get All Notes (GET /notes)</h2>
+        <button onclick="getAllNotes()">Get All Notes</button>
+    </div>
+
+    <div class="section">
+        <h2>Get Note by ID (GET /notes/:id)</h2>
+        <input id="getNoteId" placeholder="Note ID" required>
+        <button onclick="getNoteById()">Get Note</button>
+    </div>
+
+    <div class="section">
+        <h2>Update Note (PUT /notes/:id)</h2>
+        <input id="updateNoteId" placeholder="Note ID" required>
+        <input id="updateTitle" placeholder="New Title">
+        <input id="updateContent" placeholder="New Content">
+        <input id="updateTags" placeholder="New Tags (comma-separated)">
+        <button onclick="updateNote()">Update Note</button>
+    </div>
+
+    <div class="section">
+        <h2>Delete Note (DELETE /notes/:id)</h2>
+        <input id="deleteNoteId" placeholder="Note ID" required>
+        <button onclick="deleteNote()">Delete Note</button>
+    </div>
+
+    <div class="section">
+        <h2>Add Tags (PUT /notes/:id/tags)</h2>
+        <input id="addTagsNoteId" placeholder="Note ID" required>
+        <input id="addTags" placeholder="Tags to Add (comma-separated)" required>
+        <button onclick="addTags()">Add Tags</button>
+    </div>
+
+    <div class="section">
+        <h2>Remove Tags (DELETE /notes/:id/tags)</h2>
+        <input id="removeTagsNoteId" placeholder="Note ID" required>
+        <input id="removeTags" placeholder="Tags to Remove (comma-separated)" required>
+        <button onclick="removeTags()">Remove Tags</button>
+    </div>
+
+    <div class="section">
+        <h2>Query Notes (GET /notes/query)</h2>
+        <input id="queryString" placeholder="Query String (e.g., tags.includes('work'))" required>
+        <button onclick="queryNotes()">Query Notes</button>
+    </div>
+
+    <div class="section">
+        <h2>Output</h2>
+        <div id="output"></div>
+    </div>
+
+    <script>
+        const apiUrl = 'http://localhost:3000/notes';
+
+        function displayOutput(data) {
+            document.getElementById('output').textContent = JSON.stringify(data, null, 2);
+        }
+
+        async function fetchApi(url, method, body = null) {
+            const options = {
+                method: method,
+                headers: {'Content-Type': 'application/json'},
+            };
+            if (body) options.body = JSON.stringify(body);
+            const response = await fetch(url, options);
+            return await response.json();
+        }
+
+        async function createNote() {
+            const title = document.getElementById('createTitle').value;
+            const content = document.getElementById('createContent').value;
+            const tags = document.getElementById('createTags').value.split(',').map(tag => tag.trim());
+            const data = await fetchApi(apiUrl, 'POST', { title, content, tags });
+            displayOutput(data);
+        }
+
+        async function getAllNotes() {
+            const data = await fetchApi(apiUrl, 'GET');
+            displayOutput(data);
+        }
+
+        async function getNoteById() {
+            const id = document.getElementById('getNoteId').value;
+            const data = await fetchApi(`${apiUrl}/${id}`, 'GET');
+            displayOutput(data);
+        }
+
+        async function updateNote() {
+            const id = document.getElementById('updateNoteId').value;
+            const title = document.getElementById('updateTitle').value;
+            const content = document.getElementById('updateContent').value;
+            const tags = document.getElementById('updateTags').value.split(',').map(tag => tag.trim());
+            const data = await fetchApi(`${apiUrl}/${id}`, 'PUT', { title, content, tags });
+            displayOutput(data);
+        }
+
+        async function deleteNote() {
+            const id = document.getElementById('deleteNoteId').value;
+            const data = await fetchApi(`${apiUrl}/${id}`, 'DELETE');
+            displayOutput(data);
+        }
+
+        async function addTags() {
+            const id = document.getElementById('addTagsNoteId').value;
+            const tags = document.getElementById('addTags').value.split(',').map(tag => tag.trim());
+            const data = await fetchApi(`${apiUrl}/${id}/tags`, 'PUT', { tags });
+            displayOutput(data);
+        }
+
+        async function removeTags() {
+            const id = document.getElementById('removeTagsNoteId').value;
+            const tags = document.getElementById('removeTags').value.split(',').map(tag => tag.trim());
+            const data = await fetchApi(`${apiUrl}/${id}/tags`, 'DELETE', { tags });
+            displayOutput(data);
+        }
+
+        async function queryNotes() {
+            const query = document.getElementById('queryString').value;
+            const data = await fetchApi(`${apiUrl}/query?query=${encodeURIComponent(query)}`, 'GET');
+            displayOutput(data);
+        }
+    </script>
+</body>
+</html>
