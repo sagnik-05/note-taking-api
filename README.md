@@ -19,7 +19,7 @@ To clone and run this application, you'll need Git and Node.js (which comes with
 
 # Clone this repository
  <br>
-$ git clone  s://github.com/yourusername/notes-api](https://github.com/sagnik-05/note-taking-api.git
+$ git clone  https://github.com/sagnik-05/note-taking-api.git
 
 # Go into the repository
  <br>
