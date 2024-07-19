@@ -1,6 +1,5 @@
 <h1 align="center">
   <br>
-  <a href=" ://www.example.com"><img src=" s://via.placeholder.com/200" alt="Notes API" width="200"></a>
   <br>
   Note Taking API
   <br>
