@@ -218,3 +218,5 @@ Response:
     "tags": ["tag2"]
   }
 ]
+# Run the test.html file and test all the api endpoints
+# GOODLUCK :)
