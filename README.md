@@ -32,7 +32,8 @@ $ npm install
 # Run the app
  <br>
 $ npm start or node src/app.js
-Note
+ <br>
+Note:
 If you're using Linux Bash for Windows, see this guide or use node from the command prompt.
 
 # API Endpoints
