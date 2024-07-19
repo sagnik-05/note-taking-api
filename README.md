@@ -18,45 +18,52 @@ To clone and run this application, you'll need Git and Node.js (which comes with
 
 
 # Clone this repository
-$ git clone  s://github.com/yourusername/notes-api
+ <br>
+$ git clone  s://github.com/yourusername/notes-api](https://github.com/sagnik-05/note-taking-api.git
 
 # Go into the repository
-$ cd notes-api
+ <br>
+$ cd note-taking-api
 
 # Install dependencies
+ <br>
 $ npm install
 
 # Run the app
+ <br>
 $ npm start or node src/app.js
 Note
 If you're using Linux Bash for Windows, see this guide or use node from the command prompt.
 
-API Endpoints
+# API Endpoints
 Basic Note Operations
 Create a new note
 
 POST /notes
+ <br>
 Request Body:
+ <br>
 
 {
   "title": "Sample Note",
   "content": "This is a sample note."
 }
+ <br>
 Response:
-
+ <br>
 {
   "id": 1,
   "title": "Sample Note",
   "content": "This is a sample note.",
   "tags": []
 }
+ <br>
 Retrieve all notes
-
- 
- 
+ <br>
 GET /notes
+ <br>
 Response:
-
+ <br>
   
  
 [
@@ -67,14 +74,13 @@ Response:
     "tags": []
   }
 ]
+ <br>
 Retrieve a single note by its ID
-
- 
- 
+ <br>
 GET /notes/:id
+ <br>
 Response:
-
-  
+ <br>
  
 {
   "id": 1,
@@ -82,21 +88,22 @@ Response:
   "content": "This is a sample note.",
   "tags": []
 }
+ <br>
 Update a note by its ID
-
-
- 
+ <br>
 PUT /notes/:id
+ <br>
 Request Body:
-
+ <br>
   
  
 {
   "title": "Updated Note",
   "content": "This is an updated note."
 }
+ <br>
 Response:
-
+ <br>
   
  
 {
@@ -105,28 +112,34 @@ Response:
   "content": "This is an updated note.",
   "tags": []
 }
+ <br>
 Delete a note by its ID
-
+ <br>
  
  
 DELETE /notes/:id
+ <br>
 Response:
+ <br>
 
   
  
 {
   "message": "Note deleted successfully."
 }
+ <br>
 Tag Management
+ <br>
 Add tags to a note
-
+ <br>
  
  
 PUT /notes/:id/tags
 **
+ <br>
 
 Request Body:**
-
+ <br>
   
  
 {
@@ -142,21 +155,24 @@ Response:
   "content": "This is a sample note.",
   "tags": ["tag1", "tag2"]
 }
+ <br>
 Remove tags from a note
-
+ <br>
  
  
 DELETE /notes/:id/tags
+ <br>
 Request Body:
 
-  
+   <br>
  
 {
   "tags": ["tag1"]
 }
+ <br>
 Response:
 
-  
+   <br>
  
 {
   "id": 1,
@@ -164,21 +180,25 @@ Response:
   "content": "This is a sample note.",
   "tags": ["tag2"]
 }
+ <br>
 Querying
+ <br>
 Retrieve notes based on a logical tag query
 
  
- 
+  <br>
 GET /notes/query
+ <br>
 Query Parameters:
-
+ <br>
 tags (required): A comma-separated list of tags to query.
 logic (optional): The logic to apply to the query (default is "and"). Possible values: and, or.
 Example:
-
+ <br>
  
  
 GET /notes/query?tags=tag1,tag2&logic=or
+ <br>
 Response:
 
   
