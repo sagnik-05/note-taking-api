@@ -33,6 +33,7 @@ $ npm install
  <br>
 $ npm start or node src/app.js
  <br>
+Go to http://localhost:3000/notes to see all the updation you make.
 Note:
 If you're using Linux Bash for Windows, see this guide or use node from the command prompt.
 
